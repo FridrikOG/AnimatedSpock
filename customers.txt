@@ -1,5 +1,0 @@
-frikki,30,10
-fjolnir,22,10000
-frikki,25,100
-fjolnir,22,10000
-babar,38,12323

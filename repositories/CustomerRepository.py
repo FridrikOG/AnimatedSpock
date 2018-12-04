@@ -5,7 +5,7 @@ class CustomerRepository:
         self.__customers = []
 
     def addCustomer(self,customer):
-        with open('customers.txt','a') as customerFile:
+        with open('./data/customers.txt','a') as customerFile:
             name = customer.getName()
             age = customer.getAge()
             ssn = customer.getSsn()
