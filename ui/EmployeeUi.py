@@ -10,7 +10,11 @@ class EmployeeUi():
         action = True
         while action:
             startPageMenuPrint()
-            action = startPageMenuAction()
+            action = '3'
+            if action == '3':
+                name,age,ssn = createCustomer()
+                newCustomer = Customer(name,age,ssn)
+                self.__customerService.addCustomer(newCustomer)
 
         
 def startPageMenuPrint():
