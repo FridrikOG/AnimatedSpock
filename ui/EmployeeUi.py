@@ -21,7 +21,11 @@ def startPageMenuPrint():
 
 def startPageMenuAction():
     action = '1'
-    if action == '1':
-        print("1.")
-    if action == 'q':
-        print('Exiting program!')
+    if action == '3':
+        print("3.")
+
+def main():
+    ui = EmployeeUi()
+    ui.startPageMenu()
+
+main()
