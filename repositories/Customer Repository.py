@@ -4,4 +4,5 @@ class CustomerRepository:
     def __init__(self):
         self.__customers = []
 
-    def addCustomer()
+    def addCustomer(self,customer):
+        with open()
