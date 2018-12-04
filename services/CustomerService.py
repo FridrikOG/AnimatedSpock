@@ -4,7 +4,7 @@ class CustomerService:
     def __init__(self):
         self.__customerRepo = CustomerRepository()
 
-    def addCustomer(self, video):
+    def addCustomer(self, customer):
         if self.isValidCustomer(customer):
             self.__customerRepo.addCustomer(customer)
     
