@@ -14,15 +14,16 @@ def startPageMenuPrint():
     print("--------Start-Page--------")
     print("3. Register customer.")
 
+def createCustomer():
+    name = input('Enter name: ')
+    age = input('Enter age: ')
+    ssn = input('Enter Social-security-nr: ')
+    return name,age,ssn
 
 
 def startPageMenuAction():
     action = '3'
     if action == '3':
-        print("3")
-
-def main():
-    ui = EmployeeUi()
-    ui.startPageMenu()
-
-main()
+        name,age,ssn = createCustomer()
+        customer = Customer(name,age,ssn)
+        

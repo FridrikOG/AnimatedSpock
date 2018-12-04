@@ -3,3 +3,18 @@ class Customer():
         self.__name = name
         self.__age = age
         self.__ssn = ssn
+
+    def __str__(self):
+        s = f'Name: {self.__name}\n'
+        s += f'Age: {self.__age}\n'
+        s += f'SSN: {self.__ssn}\n'
+        return s
+
+    def getName():
+        return self.__name
+
+    def getAge():
+        return self.__age
+    
+    def getSsn():
+        return self.__ssn
