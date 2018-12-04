@@ -5,8 +5,8 @@ class CustomerRepository:
         self.__customers = []
 
     def addCustomer(self,customer):
-        with open('.data/customers.txt','a') as customerFile:
+        with open('customers.txt','a') as customerFile:
             name = customer.getName()
             age = customer.getAge()
             ssn = customer.getSsn()
-            customerFile.write(f'{name},{age},{ssn}')
+            customerFile.write(f'{name},{age},{ssn}\n')
