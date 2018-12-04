@@ -1,20 +1,20 @@
-from repositories.VideoRepository import VideoRepository
+from repositories.CustomerRepository import Customer
 
 class VideoService:
     def __init__(self):
-        self.__video_repo = VideoRepository()
+        self.__customerRepo = CustomerRepository()
 
-    def add_video(self, video):
-        if self.is_valid_video(video):
-            self.__video_repo.add_video(video)
+    def addCustomer(self, video):
+        if self.isValidCustomer(customer):
+            self.__customerRepo.addCustomer(customer)
     
-    def is_valid_video(self, video):
+    def isValidCustomer(self, customer):
         #here should be some code to 
         #validate the video
         return True
 
-    def get_videos(self):
-        return self.__video_repo.get_videos()
+    def getCustomers(self):
+        return self.__customerRepo.getCustomers()
 
     def get_videos_by_genre(self, genre):
         pass
