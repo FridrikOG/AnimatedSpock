@@ -1,7 +1,4 @@
-
-
-
-import time
+from models.Customer import Customer
 
 class EmployeeUi():
     def __init__(self):
@@ -20,9 +17,9 @@ def startPageMenuPrint():
 
 
 def startPageMenuAction():
-    action = '1'
+    action = '3'
     if action == '3':
-        print("3.")
+        print("3")
 
 def main():
     ui = EmployeeUi()
