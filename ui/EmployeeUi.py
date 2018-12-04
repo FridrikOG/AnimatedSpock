@@ -1,8 +1,10 @@
 from models.Customer import Customer
+from services.CustomerService import CustomerService
 
 class EmployeeUi():
     def __init__(self):
-        pass
+        self.__customer_service = CustomerService()
+
     def startPageMenu(self):
         action = True
         while action:
@@ -26,4 +28,5 @@ def startPageMenuAction():
     if action == '3':
         name,age,ssn = createCustomer()
         newCustomer = Customer(name,age,ssn)
+        self.__addCustomer(newCustomer)
         

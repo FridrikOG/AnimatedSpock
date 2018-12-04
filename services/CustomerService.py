@@ -1,6 +1,6 @@
 from repositories.CustomerRepository import Customer
 
-class VideoService:
+class CarService:
     def __init__(self):
         self.__customerRepo = CustomerRepository()
 

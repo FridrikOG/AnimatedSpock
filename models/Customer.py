@@ -10,11 +10,11 @@ class Customer():
         s += f'SSN: {self.__ssn}\n'
         return s
 
-    def getName():
+    def getName(self):
         return self.__name
 
-    def getAge():
+    def getAge(self):
         return self.__age
     
-    def getSsn():
+    def getSsn(self):
         return self.__ssn
