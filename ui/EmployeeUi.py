@@ -25,5 +25,5 @@ def startPageMenuAction():
     action = '3'
     if action == '3':
         name,age,ssn = createCustomer()
-        customer = Customer(name,age,ssn)
+        newCustomer = Customer(name,age,ssn)
         
