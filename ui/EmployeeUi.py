@@ -3,7 +3,7 @@ from services.CustomerService import CustomerService
 
 class EmployeeUi():
     def __init__(self):
-        self.__customer_service = CustomerService()
+        self.__customerService = CustomerService()
 
     def startPageMenu(self):
         action = True
@@ -28,5 +28,5 @@ def startPageMenuAction():
     if action == '3':
         name,age,ssn = createCustomer()
         newCustomer = Customer(name,age,ssn)
-        self.__addCustomer(newCustomer)
+        # self.__customerService.addCustomer(newCustomer)
         
