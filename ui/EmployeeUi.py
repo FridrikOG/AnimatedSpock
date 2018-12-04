@@ -23,3 +23,5 @@ def startPageMenuAction():
     action = '1'
     if action == '1':
         print("1.")
+    if action == 'q':
+        print('Exiting program!')
