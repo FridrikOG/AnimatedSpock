@@ -59,6 +59,10 @@ class EmployeeUi():
         print("2. Show all customers")
 
     def displayAllCustomersPrint(self,customers):
+        print("{:15} {:15} {:15}".format("Name", "Age", "SSN"))
+        print("{:15} {:15} {:15}".format("---------------",\
+        "---------------","---------------","---------------","---------------",\
+        "---------------","---------------",))
         for customer in customers:
             print(customer)
         
