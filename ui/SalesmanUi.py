@@ -12,7 +12,6 @@ class SalesmanUi:
 
 
     def findCustomerMenu(self):
-            self.findCustomerMenuPrint()
             findCustomerAction = input('Choose action: ')
             if findCustomerAction == '0':
                 self.mainMenu()
@@ -59,11 +58,12 @@ class SalesmanUi:
         print("press q to quit\n")
 
     def createCustomer(self):
-        name = input('Enter name: ').strip()
-        age = input('Enter age: ').strip()
-        ssn = input('Enter Social-security-nr: ').strip()
-        address = input('Enter address: ').strip()
-        number = input('Enter number: ').strip()
+        print("-----------Creating customer account-----------")
+        name = input('Step 1/5 - Enter name: ').strip()
+        age = input('Step 2/5 - Enter age: ').strip()
+        ssn = self.errorCheckingSsn()
+        address = input('Step 4/5 Enter address: ').strip()
+        number = input('Step 5/5 Enter number: ').strip()
 
         return name,age,ssn, address, number
 
@@ -92,3 +92,13 @@ class SalesmanUi:
     def searchCustomerPrintHeader(self,customer):
         print("--------------------------------------------Search for customer-------------------------------------------")
         print(customer)
+
+    def errorCheckingSsn(self):
+        ssn = ''
+        while len(str(ssn)) != 10:
+            try:
+                ssn = int(input("Step 3/5 - Enter an SSN of 10 numbers: "))
+            except ValueError:
+                print("Please enter only 10 integers")
+        return ssn
+
