@@ -10,11 +10,13 @@ class EmployeeUi():
         action = True
         while action:
             mainMenuPrint()
-            action = '3'
+            action = '4'
             if action == '3':
                 name,age,ssn = createCustomer()
                 newCustomer = Customer(name,age,ssn)
                 self.__customerService.addCustomer(newCustomer)
+            elif action == '4':
+                print("")
 
         
 def mainMenuPrint():
