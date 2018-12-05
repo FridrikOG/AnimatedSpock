@@ -63,7 +63,8 @@ class SalesmanUi:
         age = input('Step 2/5 - Enter age: ').strip()
         ssn = self.errorCheckingSsn()
         address = input('Step 4/5 Enter address: ').strip()
-        number = input('Step 5/5 Enter number: ').strip()
+        number = self.countingCustomers()
+        number += 1
 
         return name,age,ssn, address, number
 
@@ -93,6 +94,7 @@ class SalesmanUi:
         print("--------------------------------------------Search for customer-------------------------------------------")
         print(customer)
 
+#Checking if ssn consists of 10 integers
     def errorCheckingSsn(self):
         ssn = ''
         while len(str(ssn)) != 10:
@@ -102,3 +104,6 @@ class SalesmanUi:
                 print("Please enter only 10 integers")
         return ssn
 
+    def countingCustomers(self):
+        listOfSsn = self.__customerService.countingCustomers()
+        return len(listOfSsn)

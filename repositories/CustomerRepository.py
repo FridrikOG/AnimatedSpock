@@ -5,6 +5,7 @@ class CustomerRepository:
     def __init__(self):
         self.__customers = []
         self.__setCustomers = set()
+        self.__ssnList = []
 
     def addCustomer(self,customer):
         with open('./data/customers.csv','a',) as customerFile:
@@ -33,8 +34,6 @@ class CustomerRepository:
                     #     self.__ssnCustomers.add(newCustomer)   
         return self.__customers
 
-
-
     def findCustomer(self, searchTerm):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
@@ -50,4 +49,15 @@ class CustomerRepository:
 
                         print("Success")
                         return newCustomer
+
+    def countingCustomers(self):
+        with open('./data/customers.csv', 'r') as customerFile:
+            csvReader = csv.DictReader(customerFile)
+            self.__ssnList = []
+            for line in csvReader:
+                ssn = line['ssn']
+                self.__ssnList.append(ssn)
+            return self.__ssnList
+
+
 
