@@ -25,6 +25,9 @@ class EmployeeUi():
                 elif findCustomerAction == '2':
                     customers = self.__customerService.getAllCustomers()
                     print(customers)
+                    for customer in customers:
+                        print(customer)
+                    s = input('Customers')
 
     def findCustomerMenu(self):
             findCustomerMenuPrint()

@@ -9,6 +9,9 @@ class Customer():
         s += f'Age: {self.__age}\n'
         s += f'SSN: {self.__ssn}\n'
         return s
+    
+    def __repr__(self):
+        return self.__str__()
 
     def getName(self):
         return self.__name
