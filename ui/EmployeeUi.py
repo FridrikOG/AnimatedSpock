@@ -19,7 +19,6 @@ class EmployeeUi():
                 s = input('Customers')
 
     def startPageMenu(self):
-        #employee = EmployeeUi()
         action = True
         while action:
             self.mainMenuPrint()
