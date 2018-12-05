@@ -17,7 +17,8 @@ class SalesmanUi:
             if findCustomerAction == '0':
                 self.mainMenu()
             elif findCustomerAction == '1':
-                customer = self.__customerService.findCustomer()
+                searchTerm = input("Input SSN or name to find: ")
+                customer = self.__customerService.findCustomer(searchTerm)
                 self.searchCustomerPrintHeader(customer)
                 
             elif findCustomerAction == '2':
@@ -58,11 +59,11 @@ class SalesmanUi:
         print("press q to quit\n")
 
     def createCustomer(self):
-        name = input('Enter name: ')
-        age = input('Enter age: ')
-        ssn = input('Enter Social-security-nr: ')
-        address = input('Enter address: ')
-        number = input('Enter number: ')
+        name = input('Enter name: ').strip()
+        age = input('Enter age: ').strip()
+        ssn = input('Enter Social-security-nr: ').strip()
+        address = input('Enter address: ').strip()
+        number = input('Enter number: ').strip()
 
         return name,age,ssn, address, number
 
@@ -90,4 +91,4 @@ class SalesmanUi:
 
     def searchCustomerPrintHeader(self,customer):
         print("--------------------------------------------Search for customer-------------------------------------------")
-        print(set(customer))
+        print(customer)

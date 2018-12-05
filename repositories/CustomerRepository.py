@@ -5,7 +5,6 @@ class CustomerRepository:
     def __init__(self):
         self.__customers = []
         self.__setCustomers = set()
-        self.__ssnCustomers = set()
 
     def addCustomer(self,customer):
         with open('./data/customers.csv','a',) as customerFile:
@@ -14,11 +13,12 @@ class CustomerRepository:
             ssn = customer.getSsn()
             address = customer.getAddress()
             number = customer.getNumber()
-            customerFile.write(f'{name},{age},{ssn},{address}, {number}\n')
+            customerFile.write(f'{name},{age},{ssn},{address},{number}\n')
 
     def getAllCustomers(self):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
+            self.__customers = []
             for line in csvReader:
                     name = line['name']
                     age = line['age']
@@ -33,13 +33,21 @@ class CustomerRepository:
                     #     self.__ssnCustomers.add(newCustomer)   
         return self.__customers
 
-    def findCustomer(self):
+
+
+    def findCustomer(self, searchTerm):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
+            self.__customers = []
             for line in csvReader:
-                if line not in self.__setCustomers:
-                    self.__setCustomers.add(line)
-        return self.__setCustomers
-        
-        
+                    name = line['name']
+                    age = line['age']
+                    ssn = line['ssn']
+                    address = line['address']
+                    number = line['number']
+                    newCustomer = Customer(name, age, ssn, address, number)
+                    if searchTerm == number:
+
+                        print("Success")
+                        return newCustomer
 
