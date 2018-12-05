@@ -1,3 +1,0 @@
-1,2,3
-frikki,bestur,i heimi
-bestur,i,heimi

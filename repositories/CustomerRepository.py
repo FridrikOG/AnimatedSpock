@@ -22,14 +22,3 @@ class CustomerRepository:
                 newCustomer = Customer(name,age,ssn)
                 self.__customers.append(newCustomer)     
         return self.__customers
-
-
-    #     with open('data/customer.csv', 'r') as carFile:
-    #         csv_reader = csv.DictReader(carFile)
-    #         for line in csv_reader:
-    #             name = line['name']
-    #             age = line['age']
-    #             ssn = line['ssn']
-                
-    #             newCustomer = Customer(name,age,ssn)
-    #             self.__customer.append(newCustomer)
