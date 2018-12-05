@@ -5,7 +5,7 @@ class Customer():
         self.__ssn = ssn
 
     def __str__(self):
-        return "{:15} {:15} {:15}".format(self.__name,self.__age,self.__ssn)
+        return '{:15} {:15} {:15}'.format(self.__name,self.__age,self.__ssn)
     
     def __repr__(self):
         return self.__str__()
