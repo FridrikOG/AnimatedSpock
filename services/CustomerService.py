@@ -16,6 +16,9 @@ class CustomerService:
     def getAllCustomers(self):
         return self.__customerRepo.getAllCustomers()
 
+    def findCustomer(self):
+        return self.__customerRepo.findCustomer()
+
     def get_videos_by_genre(self, genre):
         pass
 

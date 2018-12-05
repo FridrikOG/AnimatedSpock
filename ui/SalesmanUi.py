@@ -17,7 +17,9 @@ class SalesmanUi:
             if findCustomerAction == '0':
                 self.mainMenu()
             elif findCustomerAction == '1':
-                self.searchCustomerPrintHeader()
+                customer = self.__customerService.findCustomer()
+                self.searchCustomerPrintHeader(customer)
+                
             elif findCustomerAction == '2':
                 customers = self.__customerService.getAllCustomers()
                 self.displayAllCustomersPrint(customers)
@@ -33,8 +35,8 @@ class SalesmanUi:
                 self.displayAllCarsPrint(cars)
 
             if action == '3':
-                name,age,ssn = self.createCustomer()
-                newCustomer = Customer(name,age,ssn)
+                name,age,ssn,address,number = self.createCustomer()
+                newCustomer = Customer(name,age,ssn,address,number)
                 self.__customerService.addCustomer(newCustomer)
 
             elif action == '5':
@@ -59,7 +61,10 @@ class SalesmanUi:
         name = input('Enter name: ')
         age = input('Enter age: ')
         ssn = input('Enter Social-security-nr: ')
-        return name,age,ssn
+        address = input('Enter address: ')
+        number = input('Enter number: ')
+
+        return name,age,ssn, address, number
 
     # Displays options that the user has.
     def findCustomerMenuPrint(self):
@@ -68,9 +73,9 @@ class SalesmanUi:
         print("2. Show all customers")
 
     def displayAllCustomersPrint(self,customers):
-        print("{:15} {:15} {:15}".format("Name", "Age", "SSN"))
-        print("{:15} {:15} {:15}".format("---------------",\
-        "---------------","---------------"))
+        print("{:15} {:15} {:15} {:15} {:15}".format("Name", "Age", "SSN", "Address", "Number"))
+        print("{:15} {:15} {:15} {:15} {:15}".format("---------------",\
+        "---------------","---------------", "---------------", "---------------"))
         for customer in customers:
             print(customer)
     
@@ -83,5 +88,6 @@ class SalesmanUi:
             print(car)
         
 
-    def searchCustomerPrintHeader(self):
+    def searchCustomerPrintHeader(self,customer):
         print("--------------------------------------------Search for customer-------------------------------------------")
+        print(set(customer))
