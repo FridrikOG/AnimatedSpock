@@ -6,21 +6,16 @@ class EmployeeUi():
     def __init__(self):
         self.__customerService = CustomerService()
 
-    def getAllCustomers(self):
-        customers = self.__customerService.getAllCustomers()
-        return customers
-
     def findCustomerMenu(self):
             self.findCustomerMenuPrint()
             findCustomerAction = input('Choose action: ')
             if findCustomerAction == '0':
-                pass
+                self.startPageMenu()
             elif findCustomerAction == '1':
                 self.searchCustomerPrintHeader()
             elif findCustomerAction == '2':
                 customers = self.__customerService.getAllCustomers()
-                for customer in customers:
-                    print(customer)
+                customers = self.displayAllCustomersPrint(customers)
                 s = input('Customers')
 
     def startPageMenu(self):
@@ -63,7 +58,10 @@ class EmployeeUi():
         print("1. Search for a customer")
         print("2. Show all customers")
 
-
+    def displayAllCustomersPrint(self,customers):
+        for customer in customers:
+            print(customer)
+        
 
     def searchCustomerPrintHeader(self):
         print("--------------------------------------------Search for customer-------------------------------------------")
