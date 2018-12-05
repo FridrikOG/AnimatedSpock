@@ -13,8 +13,8 @@ class CustomerService:
         #validate the video
         return True
 
-    def getCustomers(self):
-        return self.__customerRepo.getCustomers()
+    def getAllCustomers(self):
+        return self.__customerRepo.getAllCustomers()
 
     def get_videos_by_genre(self, genre):
         pass
