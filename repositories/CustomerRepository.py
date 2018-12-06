@@ -46,7 +46,8 @@ class CustomerRepository:
                     number = line['number']
                     newCustomer = Customer(name, age, ssn, address, number)
                     if searchTerm == number:
-
+                        print("Success")
+                    elif searchTerm == ssn:
                         print("Success")
                         return newCustomer
 
