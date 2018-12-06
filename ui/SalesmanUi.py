@@ -77,9 +77,12 @@ class SalesmanUi:
         age = cs.inputAgeCheck()
         ssn = cs.inputSsnCheck()
         address = cs.inputAddressCheck()
-        number = cs.countingCustomers()
-        number += 1
-        return name,age,ssn, address, number
+        number = self.countingCustomers()
+        return name,age,ssn,address,number
+
+    def countingCustomers(self):
+        listOfSsn = self.__customerService.countingCustomers()
+        return len(listOfSsn)
 
     def errorCheckingSsn(self):
         ssn = ''
@@ -89,10 +92,6 @@ class SalesmanUi:
             except ValueError:
                 print("Please enter only 10 integers")
         return ssn
-
-    def countingCustomers(self):
-        listOfSsn = self.__customerService.countingCustomers()
-        return len(listOfSsn)
 
     # Displays options that the user has.
     def findCustomerMenuPrint(self):
