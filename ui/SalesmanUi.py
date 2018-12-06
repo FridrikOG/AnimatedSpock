@@ -60,13 +60,13 @@ class SalesmanUi:
 
     def createCustomer(self):
         print("-----------Creating customer account-----------")
-        name = input('Step 1/5 - Enter name: ').strip()
-        age = input('Step 2/5 - Enter age: ').strip()
-        ssn = self.errorCheckingSsn()
-        address = input('Step 4/5 Enter address: ').strip()
+        cs = CustomerService()
+        name = cs.inputNameCheck()
+        age = cs.inputAgeCheck()
+        ssn = cs.inputSsnCheck()
+        address = cs.inputAddressCheck()
         number = self.countingCustomers()
         number += 1
-
         return name,age,ssn, address, number
 
     # Displays options that the user has.
