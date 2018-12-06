@@ -58,15 +58,18 @@ class SalesmanUi:
     def findCustomerMenu(self):
         self.findCustomerMenuPrint()
         findCustomerAction = input("Choose action: ")
+    #Going to menu
         if findCustomerAction == '0':
             self.mainMenu()
+    #Finding customer
         elif findCustomerAction == '1':
             self.searchCustomerPrintHeader()
             searchTerm = input("Input SSN or name to find: ")
             self.displayCustomerHeaderPrint()
             customer = self.__customerService.findCustomer(searchTerm)
             self.afterCustomerIsFoundPrint()
-            self.afterCustomerIsFoundMenu()
+            self.afterCustomerIsFoundMenu(customer)
+    #show all customers
         elif findCustomerAction == '2':
             customers = self.__customerService.getAllCustomers()
             self.displayAllCustomersPrint(customers)
@@ -78,14 +81,16 @@ class SalesmanUi:
         print("1. Edit customer info")
         print("2. Delete customer")
 
-    def afterCustomerIsFoundMenu(self):
+    def afterCustomerIsFoundMenu(self, customer):
         afterCustomerFoundAction = input("Choose action: ")
         if afterCustomerFoundAction == '0':
             self.findCustomerMenu()
-        elif afterCustomerFoundAction == '1':
-            self.editCustomerInfo()
+        #elif afterCustomerFoundAction == '1':
+        #    self.editCustomerInfo()
         elif afterCustomerFoundAction == '2':
-            self.deleteCustomer()
+            customerNumber = customer.getNumber()
+            self.__customerService.deletingCustomer(customerNumber)
+            
         
 
     def createCustomer(self):
