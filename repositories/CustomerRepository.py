@@ -43,7 +43,6 @@ class CustomerRepository:
                     newCustomer = Customer(name, age, ssn, address, number)
                     if searchTerm == number:
                         print(newCustomer)
-                        print("Success")
                         return newCustomer
 
     def countingCustomers(self):
