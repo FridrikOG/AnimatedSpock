@@ -100,13 +100,9 @@ class SalesmanUi:
         age = cs.inputAgeCheck()
         ssn = cs.inputSsnCheck()
         address = cs.inputAddressCheck()
-        number = self.countingCustomers()
-        number = 1
+        number = cs.getSumOfAllCustomers()
+    
         return name,age,ssn,address,number
-
-    def countingCustomers(self):
-        listOfSsn = self.__customerService.countingCustomers()
-        return len(listOfSsn)
 
     # Displays options that the user has.
     def findCustomerMenuPrint(self):

@@ -53,13 +53,21 @@ class CustomerRepository:
                 ssn = line['ssn']
                 self.__ssnList.append(ssn)
             return self.__ssnList
+
+    def countingDeletedCustomers(self):
+        with open('./data/customerDeleted.csv', 'r') as customerFile:
+            csvReader = csv.DictReader(customerFile)
+            self.__ssnList = []
+            for line in csvReader:
+                ssn = line['ssn']
+                self.__ssnList.append(ssn)
+            return self.__ssnList    
     
     def deletingCustomer(self,customerNumber):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
             self.__customers = []
-            self.__deletedCustomers
-            listOfCustomers = self.__customers
+            self.__deletedCustomers = []
             for line in csvReader:
                 name = line['name']
                 age = line['age']
