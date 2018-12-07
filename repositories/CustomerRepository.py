@@ -6,6 +6,7 @@ class CustomerRepository:
         self.__customers = []
         self.__setCustomers = set()
         self.__ssnList = []
+        self.__deletedCustomers = []
 
     def addCustomer(self,customer):
         with open('./data/customers.csv','a',) as customerFile:
@@ -33,7 +34,6 @@ class CustomerRepository:
     def findCustomer(self, searchTerm):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
-            self.__customers = []
             for line in csvReader:
                     name = line['name']
                     age = line['age']
@@ -58,6 +58,7 @@ class CustomerRepository:
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
             self.__customers = []
+            self.__deletedCustomers
             listOfCustomers = self.__customers
             for line in csvReader:
                 name = line['name']
@@ -67,8 +68,12 @@ class CustomerRepository:
                 number = line['number']
                 if number != customerNumber:
                     self.__customers.append(name+','+age+','+ssn+','+address+','+number)
+                else:
+                    self.__deletedCustomers.append(name+','+age+','+ssn+','+address+','+number)
+
             self.emptyingFile()
-            self.addingCustomers(listOfCustomers)
+            self.addingCustomers(self.__customers)
+            self.addingDeletedCustomers(self.__deletedCustomers)
 
     def emptyingFile(self):
         with open('./data/customers.csv', 'w') as customerFile:
@@ -77,6 +82,11 @@ class CustomerRepository:
         with open('./data/customers.csv', 'a') as customerFile:
             for customer in listOfCustomers:
                 customerFile.write(f'{customer}\n')
+    def addingDeletedCustomers(self,listOfCustomers):
+        with open('./data/customerDeleted.csv', 'a') as customerFile:
+            for customer in listOfCustomers:
+                customerFile.write(f'{customer}\n')
+
 
 
         
