@@ -65,8 +65,8 @@ class CustomerRepository:
                 ssn = line['ssn']
                 address = line['address']
                 number = line['number']
-            if number != customerNumber:
-                self.__customers.append(name+','+age+','+ssn+','+address+','+number)
+                if number != customerNumber:
+                    self.__customers.append(name+','+age+','+ssn+','+address+','+number)
             self.emptyingFile()
             self.addingCustomers(listOfCustomers)
 
