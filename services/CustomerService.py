@@ -18,7 +18,11 @@ class CustomerService:
         return self.__customerRepo.getAllCustomers()
 
     def findCustomer(self, searchTerm):
-        return self.__customerRepo.findCustomer(searchTerm)
+        theFoundCustomer = self.__customerRepo.findCustomer(searchTerm)
+        if theFoundCustomer == None:
+            return None
+        else:
+            return theFoundCustomer
         
     def countingCustomers(self):
         return self.__customerRepo.countingCustomers()
@@ -36,8 +40,8 @@ class CustomerService:
     def deletingCustomer(self,customerNumber):
         return self.__customerRepo.deletingCustomer(customerNumber)
 
-    def customerEdit(self,customer):
-        return self.__customerRepo.customerEdit(customer)
+    # def customerEdit(self,customer):
+    #     return self.__customerRepo.customerEdit(customer)
 
 
 

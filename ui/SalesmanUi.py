@@ -74,14 +74,21 @@ class SalesmanUi:
         elif findCustomerAction == '1':
             self.searchCustomerHeaderPrint()
             searchTerm = input("Input SSN or Customernumber to find: ")
-            self.displayCustomerHeaderPrint()
             customer = self.__customerService.findCustomer(searchTerm)
-            self.afterCustomerIsFoundPrint()
-            self.afterCustomerIsFoundMenu(customer)
+            if customer == None:
+                print()
+                print("Customer not found!")
+                self.findCustomerMenu()
+            else:
+                self.displayCustomerHeaderPrint() #This displays the customer
+                print(customer)
+                self.afterCustomerIsFoundPrint()
+                self.afterCustomerIsFoundMenu(customer)
     #show all customers
         elif findCustomerAction == '2':
             customers = self.__customerService.getAllCustomers()
             self.displayAllCustomersPrint(customers)
+            self.findCustomerMenu()
 
 
     def afterCustomerIsFoundPrint(self):
@@ -132,7 +139,7 @@ class SalesmanUi:
             elif warningMessageAction == '2':
                 self.afterCustomerIsFoundMenu(customer)
             else:
-                self.warningMessageMenu()
+                self.warningMessageMenu(customer)
         
 
     def createCustomer(self):

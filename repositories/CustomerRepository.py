@@ -42,7 +42,6 @@ class CustomerRepository:
                     number = line['number']
                     newCustomer = Customer(name, age, ssn, address, number)
                     if searchTerm == number or searchTerm == ssn:
-                        print(newCustomer)
                         return newCustomer
 
     def countingCustomers(self):
