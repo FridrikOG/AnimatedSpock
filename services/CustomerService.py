@@ -26,9 +26,11 @@ class CustomerService:
     def countingDeletedCustomers(self):
         return self.__customerRepo.countingDeletedCustomers()
     
+
     def getSumOfAllCustomers(self):
-        allCustomers = len(self.countingDeletedCustomers()) + len(self.countingCustomers()) + 1
-        return allCustomers
+        ADDINGONECUSTOMER = 1
+        sumOfAllCustomers = len(self.countingDeletedCustomers()) + len(self.countingCustomers()) + ADDINGONECUSTOMER
+        return sumOfAllCustomers
 
     
     def deletingCustomer(self,customerNumber):
