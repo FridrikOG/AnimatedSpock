@@ -36,6 +36,15 @@ class SalesmanUi:
                 newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status)
                 self.__carService.addCar(newCar)
 
+            elif action == 'q':
+                print("Exiting program..")
+                exit()
+
+            else:
+                print("Invalid action")
+                self.mainMenu()
+
+
     def mainMenuPrint(self):
         print("\nYou can do the following: ")
         print("1.  List all available cars")
@@ -63,8 +72,8 @@ class SalesmanUi:
             self.mainMenu()
     #Finding customer
         elif findCustomerAction == '1':
-            self.searchCustomerPrintHeader()
-            searchTerm = input("Input SSN or name to find: ")
+            self.searchCustomerHeaderPrint()
+            searchTerm = input("Input SSN or Customernumber to find: ")
             self.displayCustomerHeaderPrint()
             customer = self.__customerService.findCustomer(searchTerm)
             self.afterCustomerIsFoundPrint()
@@ -88,9 +97,42 @@ class SalesmanUi:
         #elif afterCustomerFoundAction == '1':
         #    self.editCustomerInfo()
         elif afterCustomerFoundAction == '2':
-            customerNumber = customer.getNumber()
-            self.__customerService.deletingCustomer(customerNumber)
+            self.warningMessagePrint(customer)
+            self.warningMessageMenu(customer)
+    
+    def editCustomerInfoMenu(self):
+            print("1. Edit customer name")
+            print("2. Edit customer age")
+            print("3. Edit customer SSN")
+            print("4. Edit customer address")
+            print("5. Edit All customer information")
             
+    def editCustomerInfo(self,customer):
+            self.editCustomerInfoMenu()
+            cs = CustomerService()
+            afterEditCustomerSelectedAction = input("Choose action: ")
+            if afterEditCustomerSelectedAction == '5':
+                cs.customerEdit(customer)
+
+    def warningMessagePrint(self,customer):
+        print("\n")
+        print("Warning: Are you sure you want to delete this customer?")
+        print(customer)
+        print("\n")
+        print("1. Yes, delete this customer")
+        print("2. No, do not deleted this customer")
+
+    def warningMessageMenu(self,customer):
+        warningMessageAction = input("Choose action")
+        while warningMessageAction:
+            if warningMessageAction == '1':
+                customerNumber = customer.getNumber()
+                self.__customerService.deletingCustomer(customerNumber)
+                self.afterCustomerIsFoundMenu(customer)
+            elif warningMessageAction == '2':
+                self.afterCustomerIsFoundMenu(customer)
+            else:
+                self.warningMessageMenu()
         
 
     def createCustomer(self):
@@ -122,7 +164,7 @@ class SalesmanUi:
             print(customer)
     
     
-    def searchCustomerPrintHeader(self):
+    def searchCustomerHeaderPrint(self):
         print("--------------------------------------------Search for customer-------------------------------------------")
 
 
