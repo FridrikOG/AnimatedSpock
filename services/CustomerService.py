@@ -35,9 +35,9 @@ class CustomerService:
     
     def deletingCustomer(self,customerNumber):
         return self.__customerRepo.deletingCustomer(customerNumber)
-        
 
-
+    def customerEdit(self,customer):
+        return self.__customerRepo.customerEdit(customer)
 
 
 
