@@ -101,8 +101,8 @@ class SalesmanUi:
         afterCustomerFoundAction = input("Choose action: ")
         if afterCustomerFoundAction == '0':
             self.findCustomerMenu()
-        #elif afterCustomerFoundAction == '1':
-        #    self.editCustomerInfo()
+        elif afterCustomerFoundAction == '1':
+            self.editCustomerInfo(customer)
         elif afterCustomerFoundAction == '2':
             self.warningMessagePrint(customer)
             self.warningMessageMenu(customer)
@@ -114,12 +114,29 @@ class SalesmanUi:
             print("4. Edit customer address")
             print("5. Edit All customer information")
             
+# The menu for editing the customer information
     def editCustomerInfo(self,customer):
             self.editCustomerInfoMenu()
             cs = CustomerService()
+            cc = Customer()
             afterEditCustomerSelectedAction = input("Choose action: ")
+            # if afterEditCustomerSelectedAction =='1':
+            #     name = cs.inputNameCheck()
+            #     age = cc.getAge
+            #     ssn = cc.
+                
+
             if afterEditCustomerSelectedAction == '5':
-                cs.customerEdit(customer)
+                customerNumber = customer.getNumber()
+                cs = CustomerService()
+                name = cs.inputNameCheck()
+                age = cs.inputAgeCheck()
+                ssn = cs.inputSsnCheck()
+                address = cs.inputAddressCheck()
+                number = customerNumber
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(customerNumber,newCustomer)
+
 
     def warningMessagePrint(self,customer):
         print("\n")

@@ -40,9 +40,8 @@ class CustomerService:
     def deletingCustomer(self,customerNumber):
         return self.__customerRepo.deletingCustomer(customerNumber)
 
-    # def customerEdit(self,customer):
-    #     return self.__customerRepo.customerEdit(customer)
-
+    def customerEdit(self,customerNumber,newCustomer):
+        self.__customerRepo.customerEdit(customerNumber,newCustomer)
 
 
 # Input check for the name of the customer
@@ -69,7 +68,7 @@ class CustomerService:
                 age = int(input("Step 2/4 - Enter the age of the customer: "))
             except:
                 print("Age has to be a number between 18 and 80 ")
-        return age
+        return str(age)
     
 # Input check for the ssn of the customer
     def inputSsnCheck(self):
@@ -79,7 +78,7 @@ class CustomerService:
                 ssn = int(input("Step 3/4 - Enter an SSN of 10 numbers: "))
             except ValueError:
                 print("Please enter only 10 integers")
-        return ssn
+        return str(ssn)
 
 # Input check for the address of the customer
     def inputAddressCheck(self):
