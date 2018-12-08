@@ -96,9 +96,10 @@ class CustomerRepository:
 
     ''' -------------------- Customer editing functions -------------------- '''
 
-    def customerEdit(self,customerNumber,newCustomer):
+    def customerEdit(self,newCustomer):
         with open('./data/customers.csv', 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
+            customerNumber = newCustomer.getNumber()
             self.__customers = []
             for line in csvReader:
                 name = line['name']
@@ -118,6 +119,8 @@ class CustomerRepository:
                     self.__customers.append(name+','+age+','+ssn+','+address+','+number)
             self.emptyingFile()
             self.addingCustomers(self.__customers)
+
+
 
 
 

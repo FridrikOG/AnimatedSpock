@@ -40,8 +40,8 @@ class CustomerService:
     def deletingCustomer(self,customerNumber):
         return self.__customerRepo.deletingCustomer(customerNumber)
 
-    def customerEdit(self,customerNumber,newCustomer):
-        self.__customerRepo.customerEdit(customerNumber,newCustomer)
+    def customerEdit(self,newCustomer):
+        self.__customerRepo.customerEdit(newCustomer)
 
 
 # Input check for the name of the customer
@@ -49,13 +49,14 @@ class CustomerService:
         check = False
         newName = ''
         while not check:
-            fullName = input('Step 1/4 - Enter name: ').strip().title().split()
+            fullName = input(' - Enter name: ')
+            fullName = fullName.strip().title().split()
             for name in fullName:
                 if name not in string.punctuation and name.isalpha():
                     newName += name + ' '
                 else:
                     print("Invalid name")
-                    self.inputNameCheck()
+                    self.inputNameCheck(messageDisplayed)
             check = True
         newName = newName.strip()
         return newName
