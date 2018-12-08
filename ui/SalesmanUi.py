@@ -2,6 +2,10 @@ from services.CarService import CarService
 from models.Car import Car
 from services.CustomerService import CustomerService
 from models.Customer import Customer
+from models.Order import Order
+from services.OrderService import OrderService
+from datetime import datetime, timedelta
+
 
 
 class SalesmanUi:
@@ -9,8 +13,10 @@ class SalesmanUi:
     def __init__(self):
         self.__carService = CarService()
         self.__customerService = CustomerService()
+        self.__orderService = OrderService()
 
     def mainMenu(self):
+
         action = ''
         while action != 'q':
             self.mainMenuPrint()
@@ -18,9 +24,10 @@ class SalesmanUi:
 
             if action == '1' or action == '2':
                 typeAction = ''
-                cars = self.__carService.getCars(action, typeAction)
+                dateAvailable = datetime.now()
+                cars = self.__carService.getCars(action, typeAction, dateAvailable)
                 self.displayAllCarsPrint(cars)
-                self.showCarsByTypeMenu(action)
+                self.showCarsByTypeMenu(action,dateAvailable)
 
 
             elif action == '3':
@@ -31,19 +38,24 @@ class SalesmanUi:
             elif action == '5':
                 self.findCustomerMenu()
 
+            elif action == '4':
+                orderNumber, customer, carNumber, carType, timeOfOrder, startDate, endDate, rentCost = self.createOrder()
+                # newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar)
+                # self.__carService.addCar(newCar)
+
+            elif action == '6':####WORKING ON THIS
+                #search for order by number
+                pass
+            
+            elif action == '7':#####WORKING ON THIS
+                orders, nothing = self.S.getAllOrders()
+                self.displayAllOrders(orders)
+                #print all orders and options
+
             elif action == '10':
-                carType,make,licenseplate,color,passengers,transmission,rentCost,status = self.createCar()
-                newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status)
+                carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar = self.createCar()
+                newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar)
                 self.__carService.addCar(newCar)
-
-            elif action == 'q':
-                print("Exiting program..")
-                exit()
-
-            else:
-                print("Invalid action")
-                self.mainMenu()
-
 
     def mainMenuPrint(self):
         print("\nYou can do the following: ")
@@ -62,16 +74,18 @@ class SalesmanUi:
 
 
 
-    ''' -------------------- Customer Functions -------------------- '''
+# ''' -------------------- Customer Functions -------------------- '''
 
     def findCustomerMenu(self):
         self.findCustomerMenuPrint()
         findCustomerAction = input("Choose action: ")
+
     #Going to menu
         if findCustomerAction == '0':
             self.mainMenu()
+
     #Finding customer
-        elif findCustomerAction == '1':
+        elif findCustomerAction == '1':'
             self.searchCustomerHeaderPrint()
             searchTerm = input("Input SSN or Customernumber to find: ")
             customer = self.__customerService.findCustomer(searchTerm)
@@ -82,14 +96,18 @@ class SalesmanUi:
             else:
                 self.displayCustomerHeaderPrint() #This displays the customer
                 print(customer)
+                name = customer.getName()
+                ssn = customer.getSsn()
+                print(name)
+                print(ssn)
                 self.afterCustomerIsFoundPrint()
                 self.afterCustomerIsFoundMenu(customer)
+
     #show all customers
         elif findCustomerAction == '2':
             customers = self.__customerService.getAllCustomers()
             self.displayAllCustomersPrint(customers)
             self.findCustomerMenu()
-
 
     def afterCustomerIsFoundPrint(self):
         print("\nActions:\n")
@@ -104,9 +122,9 @@ class SalesmanUi:
         #elif afterCustomerFoundAction == '1':
         #    self.editCustomerInfo()
         elif afterCustomerFoundAction == '2':
-            self.warningMessagePrint(customer)
-            self.warningMessageMenu(customer)
-    
+            customerNumber = customer.getNumber()
+            self.__customerService.deletingCustomer(customerNumber)
+
     def editCustomerInfoMenu(self):
             print("1. Edit customer name")
             print("2. Edit customer age")
@@ -140,7 +158,6 @@ class SalesmanUi:
                 self.afterCustomerIsFoundMenu(customer)
             else:
                 self.warningMessageMenu(customer)
-        
 
     def createCustomer(self):
         print("-----------Creating customer account-----------")
@@ -150,17 +167,19 @@ class SalesmanUi:
         ssn = cs.inputSsnCheck()
         address = cs.inputAddressCheck()
         number = cs.getSumOfAllCustomers()
-    
         return name,age,ssn,address,number
+
+    def countingCustomers(self):
+        listOfSsn = self.__customerService.countingCustomers()
+        return len(listOfSsn)
 
     # Displays options that the user has.
     def findCustomerMenuPrint(self):
-        print("\n0. <-- Go back")
+        print("0. <-- Go back")
         print("1. Search for a customer")
         print("2. Show all customers")
 
     def displayCustomerHeaderPrint(self):
-        print("\n")
         print("{:15} {:15} {:15} {:15} {:15}".format("Name", "Age", "SSN", "Address", "Number"))
         print("{:15} {:15} {:15} {:15} {:15}".format("---------------",\
         "---------------","---------------", "---------------", "---------------"))
@@ -169,7 +188,7 @@ class SalesmanUi:
         self.displayCustomerHeaderPrint()
         for customer in customers:
             print(customer)
-    
+
     
     def searchCustomerHeaderPrint(self):
         print("--------------------------------------------Search for customer-------------------------------------------")
@@ -178,7 +197,7 @@ class SalesmanUi:
     
     
     
-    ''' -------------------- Car Functions -------------------- '''
+# ''' -------------------- Car Functions -------------------- '''
 
     def findCarTypeMenuPrint(self):
         print("0. <-- Go back")
@@ -188,10 +207,10 @@ class SalesmanUi:
         print("4. Show only Highland")
         print("5. Show only Luxury")
 
-    def showCarsByTypeMenu(self, action):
+    def showCarsByTypeMenu(self, action,dateAvailable):
         while True:
             self.findCarTypeMenuPrint()
-            typeAction = input('Choose action: ')
+            typeAction = input('\nChoose action: ')
             if typeAction == '0':
                 break
             elif typeAction == '1':
@@ -204,54 +223,31 @@ class SalesmanUi:
                 typeAction = 'highland'
             elif typeAction == '5':
                 typeAction = 'luxury'
-            cars = self.__carService.getCars(action, typeAction)
+            cars = self.__carService.getCars(action, typeAction,dateAvailable)
             self.displayAllCarsPrint(cars)
 
     def createCar(self):
         print("\nSelect from Car Types:\n1. Compact\n2. Comfort\n3. CUV\
                 \n4. Highland\n5. Luxury\n")
-        while True:
-            try:
-                carTypeInput = int(input('Choose car type number:  '))
-                if 0 < carTypeInput < 6:
-                    break
-                else:
-                    print('Please choose from available types\n')
-            except:
-                print("Please only insert integer values\n")
+        #car type
+        carTypeInput = self.__carService.checkCarType()
         make = input('Make (f.x. Toyota Yaris): ').capitalize()
         color = input('Color: ').capitalize()
-        while True:
-            try:
-                passengers = int(input('Passengers: '))
-                break
-            except:
-                print("\nPlease only insert integer values\n")
-        print("Transmission:\n1. Auto\n2. Manual\n")
-        while True:
-            try:
-                transmissionInput = int(input('Choose: '))
-                if 0 < transmissionInput < 3:
-                    break
-                else:
-                    print('Please choose from available transmissions\n')
-            except:
-                print("Please only insert integer values\n")
-        transmission = self.getTransmission(transmissionInput)
-        while True:
-            licenseplate = input('License plate (F.x. LL-L00): ').upper()
-            if len(list(licenseplate)) == 6:
-                break
-            else:
-                print("Not a valid license plate")
+        passengers = self.__carService.checkPassengers()
+        transmissionInput = self.__carService.checkTransmission()
+        licenseplate = self.__carService.checkLicenseplate()
 
-        rentCost, carType = self.findRentCost(carTypeInput)
+        transmission = self.getTransmission(transmissionInput)
+        rentCost, carType = self.getCarTypeVariables(carTypeInput)
         status = 'available'
-        newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status)
+        rentOutCar = self.__carService.checkValidDate()
+        returnCar = rentOutCar
+        newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar)
         print("\nCar successfully created!")
         self.printCarHeader()
         print(newCar)
-        return carType,make,licenseplate,color,passengers,transmission,rentCost,status
+        return carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar
+
 
     def getTransmission(self, transmissionInput):
         if transmissionInput == 1:
@@ -260,7 +256,7 @@ class SalesmanUi:
             transmission = 'Manual'
         return transmission
 
-    def findRentCost(self,carTypeInput):
+    def getCarTypeVariables(self,carTypeInput):
         if carTypeInput == 1:
             carType = 'Compact'
             rentCost = 14000
@@ -285,6 +281,92 @@ class SalesmanUi:
 
     def printCarHeader(self):
         LINE = '---------------'
-        print("\n{:15} {:15} {:15} {:15} {:15} {:15} {:15}".format('Type', 'Make', 'License Plate',\
+        print("\n{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format('Type', 'Make', 'License Plate',\
         'Color', 'Passengers','Transmission','Rent Cost'))
-        print("{:15} {:15} {:15} {:15} {:15} {:15} {:15}".format(LINE, LINE, LINE, LINE, LINE, LINE, LINE))
+        print("{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format(LINE, LINE, LINE, LINE, LINE, LINE, LINE))
+
+
+# '''----------------------------------ORDER FUNCTIONS-----------------------------------------------'''
+
+    def rentOutToCustomerPrintMenu(self):
+        print("\nActions:\n")
+        print("0. Go back to main menu")
+        print("1. Select customer")
+
+    def customerNotFoundPrintMenu(self):
+        print("\nActions:\n")
+        print("0. Go back to main menu")
+        print("1. Search again")
+
+    def customerNotFoundMenu(self):
+        self.customerNotFoundPrintMenu()
+        action = input("Choose action: ")
+        if action == '0':
+            self.mainMenu()
+        elif action == '1':
+            self.createOrder()
+
+    def rentOutToCustomerMenu(self):
+        self.rentOutToCustomerPrintMenu()
+        action = input("Choose action: ")
+        if action == '0':
+            self.mainMenu()
+        elif action == '1':
+            return
+
+    def createOrder(self):
+        #Order Number
+        print("--------------------- Find customer for car rental ---------------------")
+        searchTerm = input("Enter customer SSN: ")
+        try:
+            customer = self.__customerService.findCustomer(searchTerm)
+            name = customer.getName()
+            ssn = customer.getSsn()
+            self.displayCustomerHeaderPrint()
+            print(customer)
+            self.rentOutToCustomerMenu()
+        except:
+            print("Customer not found")
+            self.customerNotFoundMenu()
+        nothing, orderNumber = self.__orderService.getAllOrders()
+        print("\nInput time of rental:")
+        rentOutCar = self.__orderService.checkValidDate()
+        print("\nInput time of return:")
+        returnCar = self.__orderService.checkValidDate()
+
+        # #car type
+        # carTypeInput = self.__carService.checkCarType()
+        # make = input('Make (f.x. Toyota Yaris): ').capitalize()
+        # color = input('Color: ').capitalize()
+        # passengers = self.__carService.checkPassengers()
+        # transmissionInput = self.__carService.checkTransmission()
+        # licenseplate = self.__carService.checkLicenseplate()
+
+        # transmission = self.getTransmission(transmissionInput)
+        # rentCost, carType = self.getCarTypeVariables(carTypeInput)
+        # status = 'available'
+        # rentOutCar = self.__carService.checkValidDate()
+        # returnCar = rentOutCar
+        # newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar)
+        # print("\nCar successfully created!")
+        # self.printCarHeader()
+        # print(newCar)
+        # return orderNumber, customer, carNumber, carType, timeOfOrder, startDate, endDate, rentCost
+
+    def displayAllOrders(self, orders):
+        self.displayAllOrdersHeaderPrint()
+        for order in orders:
+            print(order) 
+            #menu?   
+
+    def listofOrdersMenu(self):
+        print("0. Go back")
+        print("1. Search for an order by order number")
+
+
+
+    def displayAllOrdersHeaderPrint(self):
+        LINE = '---------------'
+        print("\n{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format('Order number', 'Customer', 'Car number',\
+        'Time of order', 'Start of order','End of order','Rent cost'))
+        print("{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format(LINE, LINE, LINE, LINE, LINE, LINE, LINE))
