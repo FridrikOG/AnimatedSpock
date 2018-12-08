@@ -74,9 +74,11 @@ class CustomerService:
 # Input check for the ssn of the customer
     def inputSsnCheck(self):
         ssn = ''
-        while len(str(ssn)) != 10:
+        booleanCheck = False
+        while len(str(ssn)) != 10 or not booleanCheck:
             try:
                 ssn = int(input("Step 3/4 - Enter an SSN of 10 numbers: "))
+                booleanCheck = self.__customerRepo.duplicateSsnCheck(str(ssn))
             except ValueError:
                 print("Please enter only 10 integers")
         return str(ssn)
