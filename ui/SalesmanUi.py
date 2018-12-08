@@ -119,8 +119,8 @@ class SalesmanUi:
         afterCustomerFoundAction = input("Choose action: ")
         if afterCustomerFoundAction == '0':
             self.findCustomerMenu()
-        #elif afterCustomerFoundAction == '1':
-        #    self.editCustomerInfo()
+        elif afterCustomerFoundAction == '1':
+            self.editCustomerInfo(customer)
         elif afterCustomerFoundAction == '2':
             customerNumber = customer.getNumber()
             self.__customerService.deletingCustomer(customerNumber)
@@ -132,12 +132,61 @@ class SalesmanUi:
             print("4. Edit customer address")
             print("5. Edit All customer information")
             
+# The menu for editing the customer information, Number stays the same
     def editCustomerInfo(self,customer):
             self.editCustomerInfoMenu()
             cs = CustomerService()
             afterEditCustomerSelectedAction = input("Choose action: ")
+        # Edit customer name
+            if afterEditCustomerSelectedAction =='1':
+                name = cs.inputNameCheck()
+                age = customer.getAge()
+                ssn = customer.getSsn()
+                address = customer.getAddress()
+                number = customer.getNumber()
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(newCustomer)
+        #Edit customer age
+            if afterEditCustomerSelectedAction =='2':
+                name = customer.getName()
+                age = cs.inputAgeCheck()
+                ssn = customer.getSsn()
+                address = customer.getAddress()
+                number = customer.getNumber()
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(newCustomer)
+        #Edit customer ssn
+            if afterEditCustomerSelectedAction =='3':
+                name = customer.getName()
+                age = customer.getAge()
+                ssn = cs.inputSsnCheck()
+                address = customer.getAddress()
+                number = customer.getNumber()
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(newCustomer)
+        #Edit customer address
+            if afterEditCustomerSelectedAction =='4':
+                
+                name = customer.getName()
+                age = age = customer.getAge()
+                ssn = customer.getSsn()
+                address = cs.inputAddressCheck()
+                number = customer.getNumber()
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(newCustomer)
+
+
+        #Edit all customer information
             if afterEditCustomerSelectedAction == '5':
-                cs.customerEdit(customer)
+                cs = CustomerService()
+                name = cs.inputNameCheck()
+                age = cs.inputAgeCheck()
+                ssn = cs.inputSsnCheck()
+                address = cs.inputAddressCheck()
+                number = customer.getNumber()
+                newCustomer = Customer(name,age,ssn,address,number)
+                cs.customerEdit(newCustomer)
+
 
     def warningMessagePrint(self,customer):
         print("\n")
