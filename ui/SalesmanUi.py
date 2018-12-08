@@ -85,7 +85,7 @@ class SalesmanUi:
             self.mainMenu()
 
     #Finding customer
-        elif findCustomerAction == '1':'
+        elif findCustomerAction == '1':
             self.searchCustomerHeaderPrint()
             searchTerm = input("Input SSN or Customernumber to find: ")
             customer = self.__customerService.findCustomer(searchTerm)
@@ -96,10 +96,6 @@ class SalesmanUi:
             else:
                 self.displayCustomerHeaderPrint() #This displays the customer
                 print(customer)
-                name = customer.getName()
-                ssn = customer.getSsn()
-                print(name)
-                print(ssn)
                 self.afterCustomerIsFoundPrint()
                 self.afterCustomerIsFoundMenu(customer)
 
