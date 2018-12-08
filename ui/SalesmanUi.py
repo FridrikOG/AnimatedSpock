@@ -114,18 +114,37 @@ class SalesmanUi:
             print("4. Edit customer address")
             print("5. Edit All customer information")
             
-# The menu for editing the customer information
+# The menu for editing the customer information, Number stays the same
     def editCustomerInfo(self,customer):
             self.editCustomerInfoMenu()
             cs = CustomerService()
             cc = Customer()
             afterEditCustomerSelectedAction = input("Choose action: ")
-            # if afterEditCustomerSelectedAction =='1':
-            #     name = cs.inputNameCheck()
-            #     age = cc.getAge
-            #     ssn = cc.
-                
-
+        # Edit customer name
+            if afterEditCustomerSelectedAction =='1':
+                name = cs.inputNameCheck()
+                age = cc.getAge()
+                ssn = cc.getSsn()
+                address = cc.getAddress()
+        #Edit customer age
+            if afterEditCustomerSelectedAction =='2':
+                name = cc.getName()
+                age = cs.inputAgeCheck()
+                ssn = cc.getSsn()
+                address = cc.getAddress()
+        #Edit customer ssn
+            if afterEditCustomerSelectedAction =='3':
+                name = cc.getName()
+                age = cc.getAge()
+                ssn = cs.inputSsnCheck()
+                address = cc.getAddress()
+        #Edit customer address
+            if afterEditCustomerSelectedAction =='4':
+                name = cc.getName()
+                age = age = cc.getAge()
+                ssn = cc.getSsn()
+                address = cs.inputAgeCheck
+        #Edit all customer information
             if afterEditCustomerSelectedAction == '5':
                 customerNumber = customer.getNumber()
                 cs = CustomerService()
