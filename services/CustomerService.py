@@ -56,7 +56,7 @@ class CustomerService:
                     newName += name + ' '
                 else:
                     print("Invalid name")
-                    self.inputNameCheck(messageDisplayed)
+                    self.inputNameCheck()
             check = True
         newName = newName.strip()
         return newName

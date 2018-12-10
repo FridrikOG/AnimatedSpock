@@ -15,7 +15,7 @@ class CarService:
     def checkValidDate(self):
         while True:
             try:
-                rentOutCar = input('Date created in this format DD-MM-YYYY: ') + '-12-00'
+                rentOutCar = input("Date created in this format DD-MM-YYYY: ") + '-12-00'
                 day, month, year, hour, minutes = map(int, rentOutCar.split('-'))
                 break
             except:
@@ -25,20 +25,20 @@ class CarService:
     def checkCarType(self):
         while True:
             try:
-                carTypeInput = int(input('Choose car type number:  '))
+                carTypeInput = int(input("Choose car type number:  "))
                 if 0 < carTypeInput < 6:
                     break
                 else:
-                    print('Please choose from available types\n')
+                    print("Please choose from available types\n")
             except:
                 print("Please only insert integer values\n")
-        return carTypeInput
+        return str(carTypeInput)
 
 
     def checkPassengers(self):
         while True:
             try:
-                passengers = int(input('Passengers: '))
+                passengers = int(input("Passengers: "))
                 break
             except:
                 print("\nPlease only insert integer values\n")
@@ -51,21 +51,24 @@ class CarService:
 
         while True:
             try:
-                transmissionInput = int(input('Choose: '))
+                transmissionInput = int(input("Choose: "))
                 if 0 < transmissionInput < 3:
                     break
                 else:
-                    print('Please choose from available transmissions\n')
+                    print("Please choose from available transmissions\n")
             except:
                 print("Please only insert integer values\n")
         return transmissionInput
 
 
     def checkLicenseplate(self):
-        while True:
-            licenseplate = input('License plate (F.x. LL-L00): ').upper()
-            if len(list(licenseplate)) == 6:
-                break
+        licensePlate = ''
+        booleanCheck = False
+        while len(licensePlate) != 6 or not booleanCheck:
+            licensePlate = input("License plate (F.x. LL-L00): ")
+            if len(licensePlate) == 6:
+                booleanCheck = self.__carRepo.duplicateLicensePlateCheck(str(licensePlate))
             else:
-                print("Not a valid license plate")
-        return licenseplate
+                print("License plate has to match the format")
+
+        return licensePlate
