@@ -104,6 +104,39 @@ class SalesmanUi:
             customers = self.__customerService.getAllCustomers()
             self.displayAllCustomersPrint(customers)
             self.findCustomerMenu()
+        elif findCustomerAction == '3':
+            customers = self.__customerService.getAllDeletedCustomers()
+            self.displayAllCustomersPrint(customers)
+            self.findCustomerMenu()
+        elif findCustomerAction == '4':
+            self.searchCustomerHeaderPrint()
+            searchTerm = input("Input SSN or Customer number to find: ")
+            customer = self.__customerService.findDeletedCustomer(searchTerm)
+            if customer == None:
+                print()
+                print("Customer not found!")
+                self.findCustomerMenu()
+            else:
+                self.displayCustomerHeaderPrint() #This displays the customer
+                print(customer)
+                self.afterCustomerIsFoundPrint()
+                self.afterDeletedCustomerIsFoundMenu(customer)
+
+    def afterDeletedCustomerIsFoundMenu(self,customer):
+        self.afterDeletedCustomerIsFoundPrint()
+        action = input("Choose action** needs to be a function call: ")
+        if action == '0':
+            self.findCustomerMenu()
+        elif action == '1':
+            customerNumber = customer.getNumber()
+            self.__customerService.restoringCustomer(customerNumber)
+        
+
+    def afterDeletedCustomerIsFoundPrint(self):
+        print("0. Go back")
+        print("1. Reinstate selected customer")
+        pass
+
 
     def afterCustomerIsFoundPrint(self):
         print("\nActions:\n")
@@ -223,6 +256,9 @@ class SalesmanUi:
         print("0. <-- Go back")
         print("1. Search for a customer")
         print("2. Show all customers")
+        print("3. Show all deleted customers")
+        print("4. Search for deleted customer")
+
 
     def displayCustomerHeaderPrint(self):
         print("{:15} {:15} {:15} {:15} {:15}".format("Name", "Age", "SSN", "Address", "Number"))

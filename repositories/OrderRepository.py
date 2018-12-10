@@ -22,12 +22,7 @@ class OrderRepository:
             for line in csvReader:#Problems <-----
                 orderNumber= line['orderNumber']
                 customer = line['customer']
-<<<<<<< HEAD
                 carNumber = line['carNumber']
-=======
-                SSN = line['SSN']
-                carType = line['carType']
->>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
                 timeOfOrder = line['timeOfOrder']
                 startDate= line['startDate']
                 endDate = line['endDate']
@@ -35,11 +30,7 @@ class OrderRepository:
                 
                 if orderNumber not in self.__orderNumbers:
                     self.__orderNumbers.add(int(orderNumber))
-<<<<<<< HEAD
                     newOrder = Order(orderNumber, customer, carNumber, timeOfOrder, startDate, endDate, rentCost)
-=======
-                    newOrder = Order(orderNumber, customer, carType, timeOfOrder, startDate, endDate, rentCost, SSN)
->>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
                     self.__orders.append(newOrder)
             newOrderNumber = max(self.__orderNumbers) + 1
         return self.__orders, newOrderNumber
