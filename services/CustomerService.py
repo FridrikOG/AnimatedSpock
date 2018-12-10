@@ -1,6 +1,7 @@
 from repositories.CustomerRepository import CustomerRepository
 import string
 
+
 class CustomerService:
     def __init__(self):
         self.__customerRepo = CustomerRepository()
@@ -62,9 +63,6 @@ class CustomerService:
     def customerEdit(self,newCustomer):
         self.__customerRepo.customerEdit(newCustomer)
     
-
-
-
 # Input check for the name of the customer
     def inputNameCheck(self):
         check = False

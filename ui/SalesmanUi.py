@@ -135,7 +135,7 @@ class SalesmanUi:
     def afterDeletedCustomerIsFoundPrint(self):
         print("0. Go back")
         print("1. Reinstate selected customer")
-        pass
+    
 
 
     def afterCustomerIsFoundPrint(self):
