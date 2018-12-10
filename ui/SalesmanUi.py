@@ -74,7 +74,11 @@ class SalesmanUi:
 
 
 
+<<<<<<< HEAD
 # ''' -------------------- Customer Functions -------------------- '''
+=======
+#''' -------------------- Customer Functions -------------------- '''
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
 
     def findCustomerMenu(self):
         self.findCustomerMenuPrint()
@@ -238,7 +242,6 @@ class SalesmanUi:
     def searchCustomerHeaderPrint(self):
         print("--------------------------------------------Search for customer-------------------------------------------")
 
-
     
     
     
@@ -268,6 +271,12 @@ class SalesmanUi:
                 typeAction = 'highland'
             elif typeAction == '5':
                 typeAction = 'luxury'
+<<<<<<< HEAD
+=======
+            else:
+                self.invalidActionPrint()
+                self.showCarsByTypeMenu(action,dateAvailable)
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
             cars = self.__carService.getCars(action, typeAction,dateAvailable)
             self.displayAllCarsPrint(cars)
 
@@ -285,7 +294,11 @@ class SalesmanUi:
         transmission = self.getTransmission(transmissionInput)
         rentCost, carType = self.getCarTypeVariables(carTypeInput)
         status = 'available'
+<<<<<<< HEAD
         rentOutCar = self.__carService.checkValidDate()
+=======
+        rentOutCar = self.getTimeOfOrder()
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
         returnCar = rentOutCar
         newCar = Car(carType,make,licenseplate,color,passengers,transmission,rentCost,status,rentOutCar,returnCar)
         print("\nCar successfully created!")
@@ -302,19 +315,23 @@ class SalesmanUi:
         return transmission
 
     def getCarTypeVariables(self,carTypeInput):
+<<<<<<< HEAD
         if carTypeInput == 1:
+=======
+        if carTypeInput == '1':
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
             carType = 'Compact'
             rentCost = 14000
-        if carTypeInput == 2:
+        elif carTypeInput == '2':
             carType = 'Comfort'
             rentCost = 20000
-        if carTypeInput == 3:
+        elif carTypeInput == '3':
             carType = 'CUV'
             rentCost = 25000
-        if carTypeInput == 4:
+        elif carTypeInput == '4':
             carType = 'Highland'
             rentCost = 30000
-        if carTypeInput == 5:
+        elif carTypeInput == '5':
             carType = 'Luxury'
             rentCost = 35000
         return rentCost, carType
@@ -358,6 +375,70 @@ class SalesmanUi:
             self.mainMenu()
         elif action == '1':
             return
+<<<<<<< HEAD
+=======
+        else:
+            print('\nPlease choose among available actions')
+            self.rentOutToCustomerMenu()
+
+    def selectCarType(self):
+        self.selectCarTypePrintMenu()
+        action = input('Select car type for rental: ')
+        rentCost, carType = self.getCarTypeVariables(action)
+
+        return rentCost, carType
+
+
+    def selectCarTypePrintMenu(self):
+        print("\nActions:")
+        print("0. <-- Go back")
+        print("1. Compact")
+        print("2. Comfort")
+        print("3. CUV")
+        print("4. Highland")
+        print("5. Luxury")
+
+    def getCostOfOrder(self, rentOutCarTime, returnCarTime, rentCost):
+        daysRented = returnCarTime - rentOutCarTime
+        if daysRented.seconds > 00:
+            daysRentedCount = daysRented + timedelta(days = 1)
+        totalDaysRented = daysRentedCount.day()
+
+        print("Days Rented: ",totalDaysRented)
+
+        totalCost = int(totalDaysRented) * rentCost
+
+        print("Price: {} ISK".format(totalCost))
+
+        return totalCost
+
+    def addInsurance(self, totalCost):
+        self.addInsurancePrint()
+        action = input('Choose action: ')
+        if action == '1':
+            totalCost *= 1.05
+        elif action == '2':
+            pass
+        return totalCost
+
+
+    def addInsurancePrint(self):
+        print("Actions:")
+        print("1. Add SCDW:\n-Front window\n-Sandstorm\n-Chassis\n-Theft insurance")
+        print("2. No additional insurance")
+
+    def getTimeOfOrder(self):
+        year = datetime.now().year
+        month = datetime.now().month
+        day = datetime.now().day
+        hour = datetime.now().hour
+        minutes = datetime.now().minute
+        timeOfOrder = '{}-{}-{}-{}-{}'.format(day, month, year, hour, minutes)
+        return timeOfOrder
+
+        
+
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
 
     def createOrder(self):
         #Order Number
@@ -366,7 +447,11 @@ class SalesmanUi:
         try:
             customer = self.__customerService.findCustomer(searchTerm)
             name = customer.getName()
+<<<<<<< HEAD
             ssn = customer.getSsn()
+=======
+            SSN = customer.getSsn()
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
             self.displayCustomerHeaderPrint()
             print(customer)
             self.rentOutToCustomerMenu()
@@ -374,10 +459,28 @@ class SalesmanUi:
             print("Customer not found")
             self.customerNotFoundMenu()
         nothing, orderNumber = self.__orderService.getAllOrders()
+<<<<<<< HEAD
         print("\nInput time of rental:")
         rentOutCar = self.__orderService.checkValidDate()
         print("\nInput time of return:")
         returnCar = self.__orderService.checkValidDate()
+=======
+        rentOutCar, returnCar, rentOutCarTime, returnCarTime = self.__orderService.checkValidDate()
+        rentCost, carType = self.selectCarType()
+        carCost = self.getCostOfOrder(rentOutCarTime, returnCarTime, rentCost)
+        totalCost = self.addInsurance(carCost)
+        timeOfOrder = self.getTimeOfOrder()
+        # Print out order:
+        self.displayAllOrdersHeaderPrint()
+        print(Order(orderNumber, name, carType, timeOfOrder, rentOutCar, returnCar, totalCost, SSN))
+
+        
+        # cars = self.__carService.getCars(action, carType, rentOutCarTime)
+        # self.displayAllCarsPrint(cars)
+        # self.showCarsByTypeMenu(action,rentOutCarTime)
+
+
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
 
         # #car type
         # carTypeInput = self.__carService.checkCarType()
@@ -412,6 +515,12 @@ class SalesmanUi:
 
     def displayAllOrdersHeaderPrint(self):
         LINE = '---------------'
+<<<<<<< HEAD
         print("\n{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format('Order number', 'Customer', 'Car number',\
         'Time of order', 'Start of order','End of order','Rent cost'))
         print("{:15} {:15} {:15} {:15} {:<15} {:15} {:15}".format(LINE, LINE, LINE, LINE, LINE, LINE, LINE))
+=======
+        print("\n{:15} {:15} {:15} {:15} {:17} {:17} {:17} {:15}".format('Order number', 'Customer', 'SSN', 'Car Type',\
+        'Time of order', 'Start of order','End of order','Rent cost'))
+        print("{:15} {:15} {:15} {:15} {:17} {:17} {:17} {:15}".format(LINE, LINE, LINE, LINE, LINE, LINE, LINE, LINE))
+>>>>>>> 28b4cdfef74ef1090e6da08d6cbfe7cae945d283
