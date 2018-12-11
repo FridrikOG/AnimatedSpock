@@ -63,7 +63,7 @@ class CarRepository:
                     self.__carLicenseplates.add(licenseplate)
                     newCar = Car(carType, make,licenseplate, color, passengers,transmission, rentcost, status,rentOutCar,returnCar)
 
-                    if rentOutCar < dateAvailable < returnCar:
+                    if rentOutCar < dateAvailable < returnCar or status == 'unavailable':
                         self.__carsUnavailable.append(newCar)  
                         if carType == 'Compact':
                             self.__carsCompactUnavailable.append(newCar)
@@ -122,4 +122,35 @@ class CarRepository:
                         print("License plate already registered!")
                         return False
             return True
+
+    def findCar(self, licenseplate, timeOfReturn):
+        with open ('./data/cars.csv') as carFile:
+            header = ('type','make','licenseplate','color','passengers','transmission','rentcost','status','rentout','return')
+            csvReader = csv.DictReader(carFile, header)
+            next(carFile, None)
+            lines = []
+            for line in csvReader:
+                if line['licenseplate'] == licenseplate:
+                    # Return car befor changes
+                    carType = line['type']
+                    make = line['make']
+                    color = line['color']
+                    passengers = line['passengers']
+                    transmission = line['transmission']
+                    rentcost = line['rentcost']
+                    status = line['status']
+                    rentOutCar = self.createDate(line['rentout'])
+                    returnCar = self.createDate(line['return'])
+                    returnCarInfo = Car(carType, make,licenseplate, color, passengers,transmission, rentcost, status,rentOutCar,returnCar)
+                    # Change car status
+                    line['status'] = 'available'
+                    line['return'] = timeOfReturn #strengur
+                    lines.append(line)
+                else:
+                    lines.append(line)
+        with open('./data/cars.csv', 'w') as carFile:
+            writer = csv.DictWriter(carFile, fieldnames=header)
+            writer.writeheader()
+            writer.writerows(lines)
             
+        return returnCarInfo

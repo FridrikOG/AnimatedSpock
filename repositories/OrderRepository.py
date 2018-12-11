@@ -18,11 +18,11 @@ class OrderRepository:
         with open('./data/orders.csv', 'r') as orderFile:
             csvReader = csv.DictReader(orderFile, delimiter=',')
 #orderNumber,customer,carNumber,timeOfOrder,startDate,endDate,rentCost
-            HIGHEST = 0
             for line in csvReader:#Problems <-----
                 orderNumber= line['orderNumber']
                 customer = line['customer']
-                carNumber = line['carNumber']
+                SSN = line['SSN']
+                carType = line['carType']
                 timeOfOrder = line['timeOfOrder']
                 startDate= line['startDate']
                 endDate = line['endDate']
@@ -30,26 +30,23 @@ class OrderRepository:
                 
                 if orderNumber not in self.__orderNumbers:
                     self.__orderNumbers.add(int(orderNumber))
-                    newOrder = Order(orderNumber, customer, carNumber, timeOfOrder, startDate, endDate, rentCost)
+                    newOrder = Order(orderNumber, customer, carType, timeOfOrder, startDate, endDate, rentCost, SSN)
                     self.__orders.append(newOrder)
             newOrderNumber = max(self.__orderNumbers) + 1
         return self.__orders, newOrderNumber
             
 
-    def addCar(self, newCar):
-        with open('./data/cars.csv', 'a') as carFile:
-            carType = newCar.getType()
-            make = newCar.getMake()
-            color = newCar.getColor()
-            passengers = newCar.getPassengers()
-            transmission = newCar.getTransmission()
-            licenseplate = newCar.getLicenseplate()
-            rentCost = newCar.getRentcost()
-            status = newCar.getStatus()
-            rentOutCar = newCar.getRentOutCar()
-            returnCar = newCar.getReturnCar()
-            
-            carFile.write("{},{},{},{},{},{},{},{},{},{}\n".format(carType,make,licenseplate,color,passengers,transmission,\
-            rentCost,status,rentOutCar,returnCar))
+    def addOrder(self, order):
+        with open('./data/orders.csv', 'a') as orderFile:
+            orderNumber = order.getOrderNumber()
+            customer = order.getCustomer()
+            carType = order.getCarType()
+            timeOfOrder = order.getTimeOfOrder()
+            startDate = order.getStartDate()
+            endDate = order.getEndDate()
+            rentCost = order.getRentCost()
+            SSN = order.getSSN()
+
+            orderFile.write("{},{},{},{},{},{},{},{}\n".format(orderNumber,customer,SSN,carType,timeOfOrder,startDate,endDate,rentCost))
         
             ###
