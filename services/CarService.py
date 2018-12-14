@@ -20,57 +20,57 @@ class CarService:
                 day, month, year, hour, minutes = map(int, rentOutCar.split('-'))
                 break
             except:
-                print(Colors.WHITE+"\nplease input valid date\n"+Colors.END)
+                print("\nplease input valid date\n")
         return rentOutCar
 
     def checkCarType(self):
         while True:
             try:
-                carTypeInput = int(input(Colors.BLUE+"Choose from available car types:  "+Colors.END))
+                carTypeInput = int(input("Choose from available car types:  "))
                 if 0 < carTypeInput < 6:
                     break
                 else:
-                    print(Colors.WHITE+"Please choose from available types\n"+Colors.END)
+                    print("Please choose from available types\n")
             except:
-                print(Colors.WHITE+"Please only insert integer values\n"+Colors.END)
+                print("Please only insert integer values\n")
         return str(carTypeInput)
 
     def checkPassengers(self):
         while True:
             try:
-                passengers = int(input(Colors.BLUE+"Passengers: "+Colors.END))
+                passengers = int(input("Passengers: "))
                 break
             except:
-                print(Colors.WHITE+"\nPlease only insert integer values\n"+Colors.END)
+                print("\nPlease only insert integer values\n")
         return passengers
         
     def checkTransmission(self):
-        print("{}\n{}\n{}".format(Colors.BLUE+"Transmission:"+Colors.END,"1. Auto","2. Manual"))
+        print("{}\n{}\n{}".format("Transmission:","1. Auto","2. Manual"))
 
         while True:
             try:
-                transmissionInput = int(input(Colors.BLUE+"Choose: "+Colors.END))
+                transmissionInput = int(input("Choose: "))
                 if 0 < transmissionInput < 3:
                     break
                 else:
-                    print(Colors.WHITE+"Please choose from available transmissions\n"+Colors.END)
+                    print("Please choose from available transmissions\n")
             except:
-                print(Colors.WHITE+"Please only insert integer values\n"+Colors.END)
+                print("Please only insert integer values\n")
         return transmissionInput
 
     def checkLicenseplate(self, newCar=True):
         licensePlate = ''
         booleanCheck = False
         while len(licensePlate) != 6 or not booleanCheck:
-            licensePlate = input(Colors.BLUE+"\nLicense plate (F.x. LL-L00): "+Colors.END).upper()
+            licensePlate = input("\nLicense plate (F.x. LL-L00): ").upper()
             if len(licensePlate) == 6 and newCar == True:
                 booleanCheck = self.__carRepo.duplicateLicensePlateCheck(str(licensePlate))
                 if booleanCheck == False:
-                    print(Colors.WHITE+"License plate already registered!"+Colors.END)
+                    print("License plate already registered!")
             elif len(licensePlate) == 6:
                 booleanCheck = True
             else:
-                print(Colors.WHITE+"License plate has to match the format"+Colors.END)
+                print("License plate has to match the format")
         return licensePlate
   
     def returnCar(self, licenseplate, TimeOfOrder):

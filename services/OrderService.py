@@ -17,8 +17,8 @@ class OrderService:
     def creditCardInfo(self):
         while True:
             try:
-                print(Colors.WHITE+"\nInsert credit card information for insurance in this format XXXX-XXXX-XXXX-XXXX"+Colors.END)
-                creditCard = input(Colors.WHITE+"Credit card: "+Colors.END).strip()
+                print("\nInsert credit card information for insurance in this format XXXX-XXXX-XXXX-XXXX")
+                creditCard = input("Credit card: ").strip()
                 if len(creditCard) == 19:
                     creditList = creditCard.split('-')
                     for split in creditList:
@@ -36,7 +36,7 @@ class OrderService:
                 self.insertValidCardPrint()
 
     def insertValidCardPrint(self):
-        print(Colors.BLUE+"\nPlease insert a valid credit card"+Colors.END)
+        print("\nPlease insert a valid credit card")
 
 
     def createDate(self, rentDate):
@@ -47,51 +47,51 @@ class OrderService:
 
         if newOrder == True:
             while True:
-                print(Colors.BLUE+"\nInput time of rental:"+Colors.END)
+                print("\nInput time of rental:")
                 rentOutCar = self.InputValidDate()
                 rentOutCarTime = self.getTime(rentOutCar)
                 if rentOutCarTime > datetime.now():
                     break
                 else: 
-                    print(Colors.WHITE+'\nPlease insert valid start of rental time\n'+Colors.END)
+                    print('\nPlease insert valid start of rental time\n')
                     
             while True:
-                print(Colors.BLUE+"\nInput time of return:"+Colors.END)
+                print("\nInput time of return:")
                 returnCar = self.InputValidDate()
                 returnCarTime = self.getTime(returnCar)
                 if returnCarTime > rentOutCarTime:
                     return rentOutCar, returnCar, rentOutCarTime, returnCarTime
                 else:
-                    print(Colors.WHITE+'Please insert valid end of rental time'+Colors.END)
+                    print('Please insert valid end of rental time')
         #ef ekki ný pöntun
         else:
             while True:
-                print(Colors.BLUE+"\nInput time of return:"+Colors.END)
+                print("\nInput time of return:")
                 returnCar = self.InputValidDate()
                 returnCarTime = self.getTime(returnCar)
                 if returnCarTime.day == datetime.now().day and returnCarTime.month == datetime.now().month:
                     break
                 else:
-                    print(Colors.BLUE+"Please insert valid end of rental time"+Colors.END)
+                    print("Please insert valid end of rental time")
             return returnCar
 
     def checkOrderNumber(self):
         numberExists = True
         while numberExists:
             try:
-                orderNumber = input(Colors.BLUE+"Enter Order number: "+Colors.END).strip()
+                orderNumber = input("Enter Order number: ").strip()
                 intOrder = int(orderNumber)
                 if numberExists == self.__orderRepo.checkOrderNumber(orderNumber):
                     orderInfo = self.__orderRepo.findOrder(orderNumber)
                     return orderNumber, orderInfo
                 else:
-                    print(Colors.RED+"Order number does not exist"+Colors.END)
+                    print("Order number does not exist")
             except:
-                print(Colors.RED+"Order number does not exist"+Colors.END)
-                print("\n" + Colors.BLUE + "Actions: " + Colors.END)
-                print(Colors.WHITE+"0. Go back to main menu")
-                print("1. Input order number again"+Colors.END)
-                action = input(Colors.BLUE + "\nChoose action: " + Colors.END).strip()
+                print("Order number does not exist")
+                print("\n""Actions: ")
+                print("0. Go back to main menu")
+                print("1. Input order number again")
+                action = input("\nChoose action: ").strip()
                 if action == '0':
                     break 
                 elif action == '1':
@@ -116,35 +116,35 @@ class OrderService:
             day, month, year, hour, minutes = map(int, date.split('-'))
             return datetime(year, month, day, hour, minutes)
         except ValueError:
-            print(Colors.BLUE+"Not a valid time"+Colors.END)
+            print("Not a valid time")
             return datetime(1,1,1)
 
     def InputValidDate(self):
         while True:
             try:
-                dateInput = input(Colors.WHITE+'1/2 - Input date in this format DD-MM-YYYY: '+Colors.END).strip()
-                timeInput = input(Colors.WHITE+'2/2 - Input time in this format HH:MM: '+Colors.END).strip()
+                dateInput = input('1/2 - Input date in this format DD-MM-YYYY: ').strip()
+                timeInput = input('2/2 - Input time in this format HH:MM: ').strip()
                 day, month, year = map(int, dateInput.split('-'))
                 hour, minutes = map(int,timeInput.split(':'))
                 finalDateTime = '{}-{}-{}-{}-{}'.format(day, month, year, hour, minutes)
                 break
             except:
-                print(Colors.BLUE+"\nplease input a valid date\n"+Colors.END)
+                print("\nplease input a valid date\n")
         return finalDateTime
 
     def checkCarTypeSelection(self):
         while True:
             try:
-                action = input(Colors.BLUE+"\nSelect car type for rental: "+Colors.END).strip()
+                action = input("\nSelect car type for rental: ").strip()
                 checkint = int(action)
                 if '1' <= action <= '5':
                     return action
                 else:
-                    print(Colors.WHITE+"\nPlease choose from available options"+Colors.END)
+                    print("\nPlease choose from available options")
 
 
             except:
-                print(Colors.WHITE+"\nPlease choose from available options"+Colors.END)
+                print("\nPlease choose from available options")
 
 
 
