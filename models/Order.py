@@ -1,18 +1,16 @@
 class Order(object):
-    def __init__(self, orderNumber, customer, carType, timeOfOrder, startDate, endDate, rentCost, SSN):
+    def __init__(self, orderNumber, customer, carType, timeOfOrder, startDate, endDate, rentCost, Ssn):
         self.__orderNumber = orderNumber
         self.__customer = customer
         self.__carType = carType
         self.__timeOfOrder = timeOfOrder
-        #self.__extras = extras
         self.__startDate = startDate
         self.__endDate = endDate
         self.__rentCost = rentCost
-        self.__SSN = SSN
-        #self.__status = status
+        self.__Ssn = Ssn
 
     def __str__(self):
-        return '{:15} {:15} {:15} {:15} {:17} {:17} {:17} {:6} ISK'.format(self.__orderNumber,self.__customer,self.__SSN, self.__carType,\
+        return '{:13} {:20} {:12} {:10} {:18} {:18} {:18} {} ISK'.format(self.__orderNumber,self.__customer,self.__Ssn, self.__carType,\
         self.__timeOfOrder, self.__startDate, self.__endDate, self.__rentCost)
       
     
@@ -29,8 +27,6 @@ class Order(object):
     def getCarType(self):
         return self.__carType
 
-    #def getExtras(self):
-     #   return self.__extras
     def getTimeOfOrder(self):
         return self.__timeOfOrder
 
@@ -43,8 +39,7 @@ class Order(object):
     def getRentCost(self):
         return self.__rentCost
 
-    def getSSN(self):
-        return self.__SSN
+    def getSsn(self):
+        return self.__Ssn
     
-    #def getStatus(self):
-     #   return self.__status
+ 

@@ -22,8 +22,10 @@ class CustomerRepository:
     def getAllCustomers(self, customerFile):
         with open(customerFile, 'r') as customerFile:
             csvReader = csv.DictReader(customerFile)
+# SortedCsvReader sorts customers by number, so when displaying all customers, it is sorted by the customers number.
+            sortedCsvReader = sorted(csvReader, key=lambda row:(row['number']), reverse=False)
             self.__customers = []
-            for line in csvReader:
+            for line in sortedCsvReader:
                     name = line['name']
                     age = line['age']
                     ssn = line['ssn']
@@ -95,6 +97,12 @@ class CustomerRepository:
             for customer in listOfCustomers:
                 customerFile.write(f'{customer}\n')
 
+    def editingRepopulation(self,customerList,dataRemove):
+            with open(dataRemove, 'w') as customerFile:
+                customerFile.write('name,age,ssn,address,number\n')
+                for customer in customerList:
+                    customerFile.write(f'{customer}\n')
+
 # Edits the customers information, with help from the previous functions.
     def customerEdit(self,newCustomer,fileDir):
         with open(fileDir, 'r') as customerFile:
@@ -117,9 +125,7 @@ class CustomerRepository:
                     self.__customers.append(newName+','+newage+','+newSsn+','+newAddress+','+customerNumber)
                 else:
                     self.__customers.append(name+','+age+','+ssn+','+address+','+number)
-            self.emptyingFile(fileDir)
-            self.addingCustomers(self.__customers,fileDir)
-
+            self.editingRepopulation(self.__customers,fileDir)
 
 # Checks if the ssn already exists in the system when creating a new customer or
     # when editing a customer.

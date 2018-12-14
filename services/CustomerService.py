@@ -1,4 +1,5 @@
 from repositories.CustomerRepository import CustomerRepository
+from models.Colors import Colors
 import string
 from datetime import datetime, timedelta
 
@@ -59,16 +60,16 @@ class CustomerService:
         check = False
         newName = ''
         while not check:
-            fullName = input('Step 1/3 - Enter name: ').strip().title().split()
+            fullName = input(Colors.WHITE+'Enter name: '+Colors.END).strip().title().split()
             for name in fullName:
                 if name not in string.punctuation and name.isalpha():
                     newName += name + ' '
+                    check = True
                 else:
-                    print("Invalid name")
-                    self.inputNameCheck()
-            check = True
+                    check = False
         newName = newName.strip()
         return newName
+
 
 # Input check for the age of the customer
     def inputAgeCheck(self,ssn):
@@ -89,7 +90,7 @@ class CustomerService:
     
 # Input check for the ssn of the customer
 # 
-# 
+
     def inputSsnCheck(self):
         ssn = ''
         booleanCheck = False
@@ -107,8 +108,9 @@ class CustomerService:
                 print("Please enter only 10 integers")
         return str(ssn),str(age)
 
+
 # Input check for the address of the customer
 
     def inputAddressCheck(self):
-        address = input("Step 3/3 - Enter address: ").capitalize()
+        address = input(Colors.WHITE+"Enter address: "+Colors.END).strip().capitalize()
         return address
